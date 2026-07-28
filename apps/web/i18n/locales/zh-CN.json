@@ -1,0 +1,19 @@
+{
+  "common": {
+    "siteName": "上海成电福智",
+    "nav": {
+      "home": "首页",
+      "about": "关于我们",
+      "products": "产品与解决方案",
+      "platforms": "创新平台",
+      "services": "产业服务",
+      "cases": "案例与动态",
+      "contact": "合作联系"
+    },
+    "ctaPrimary": "预约演示",
+    "ctaSecondary": "查看平台",
+    "backHome": "返回首页",
+    "viewDetails": "查看详情",
+    "notFound": "未找到对应栏目"
+  }
+}

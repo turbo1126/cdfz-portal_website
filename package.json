@@ -1,0 +1,17 @@
+{
+  "name": "cdfz-portal-website",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@11.5.0",
+  "scripts": {
+    "dev": "pnpm -r --parallel --filter @cdfz/web --filter @cdfz/cms dev",
+    "dev:web": "pnpm --filter @cdfz/web dev",
+    "dev:cms": "pnpm --filter @cdfz/cms dev",
+    "build": "pnpm -r --filter @cdfz/contracts --filter @cdfz/web --filter @cdfz/cms build",
+    "build:web": "pnpm --filter @cdfz/web build",
+    "build:cms": "pnpm --filter @cdfz/cms build",
+    "test": "pnpm --filter @cdfz/web test",
+    "typecheck": "pnpm --filter @cdfz/web typecheck",
+    "check": "pnpm run typecheck && pnpm run test && pnpm run build:cms"
+  }
+}

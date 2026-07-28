@@ -1,0 +1,50 @@
+services:
+  nginx:
+    image: nginx:1.27-alpine
+    depends_on:
+      - web
+      - cms
+    ports:
+      - "80:80"
+    volumes:
+      - ./infra/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+
+  web:
+    build:
+      context: .
+      dockerfile: infra/docker/web.Dockerfile
+    environment:
+      NODE_ENV: production
+      NUXT_PUBLIC_SITE_URL: https://example.com
+      NUXT_INTERNAL_STRAPI_URL: http://cms:1337
+      NUXT_PUBLIC_STRAPI_URL: https://cms.example.com
+
+  cms:
+    build:
+      context: .
+      dockerfile: infra/docker/cms.Dockerfile
+    environment:
+      NODE_ENV: production
+      HOST: 0.0.0.0
+      PORT: 1337
+      DATABASE_CLIENT: postgres
+      DATABASE_HOST: postgres
+      DATABASE_PORT: 5432
+      DATABASE_NAME: cdfz_portal
+      DATABASE_USERNAME: postgres
+      DATABASE_PASSWORD: postgres
+      DATABASE_SSL: false
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: cdfz_portal
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - postgres-prod-data:/var/lib/postgresql/data
+
+volumes:
+  postgres-prod-data:

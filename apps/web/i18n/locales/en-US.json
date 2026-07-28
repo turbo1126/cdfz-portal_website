@@ -1,0 +1,19 @@
+{
+  "common": {
+    "siteName": "CDFZ",
+    "nav": {
+      "home": "Home",
+      "about": "About",
+      "products": "Products",
+      "platforms": "Platforms",
+      "services": "Services",
+      "cases": "Cases & News",
+      "contact": "Contact"
+    },
+    "ctaPrimary": "Book Demo",
+    "ctaSecondary": "View Platforms",
+    "backHome": "Back to Home",
+    "viewDetails": "View Details",
+    "notFound": "Section not found"
+  }
+}
