@@ -17,7 +17,7 @@ const section = computed(() => {
 </script>
 
 <template>
-  <SectionPage
+  <ContentSectionPage
     v-if="section"
     :eyebrow="section.eyebrow || ''"
     :title="section.title"

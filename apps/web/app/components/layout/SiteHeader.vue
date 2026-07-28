@@ -72,11 +72,11 @@ watch(
   >
     <div class="site-container header-inner">
       <NuxtLink :to="localePath('/')" class="brand-link" aria-label="上海成电福智首页">
-        <span class="brand-mark"><img src="/brand/cdfz-logo.png" alt="" /></span>
-        <span class="brand-copy">
-          <strong>{{ isEnglish ? 'Chengdian Fuzhi' : '上海成电福智' }}</strong>
-          <small>CHENGDIAN FUZHI TECHNOLOGY</small>
-        </span>
+        <img
+          class="company-logo"
+          src="/brand/company-logo.png"
+          alt="上海成电福智科技有限公司"
+        />
       </NuxtLink>
 
       <nav class="desktop-nav" :aria-label="isEnglish ? 'Primary navigation' : '主导航'">
@@ -161,13 +161,8 @@ watch(
   backdrop-filter: blur(18px);
 }
 .header-inner { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 26px; }
-.brand-link { display: inline-flex; min-width: 235px; align-items: center; gap: 13px; }
-.brand-mark { display: grid; width: 46px; height: 46px; place-items: center; border-radius: 12px; background: white; box-shadow: 0 8px 24px rgba(24, 30, 24, 0.1); }
-.brand-mark img { width: 35px; height: 35px; object-fit: contain; }
-.brand-copy { display: flex; flex-direction: column; color: var(--ink); transition: color 220ms ease; }
-.brand-copy strong { font-size: 17px; letter-spacing: .16em; }
-.brand-copy small { margin-top: 3px; font-size: 8px; font-weight: 650; letter-spacing: .1em; opacity: .58; }
-.site-header--transparent .brand-copy,
+.brand-link { display: inline-flex; min-width: 330px; align-items: center; }
+.company-logo { width: 318px; height: 60px; object-fit: contain; object-position: left center; }
 .site-header--transparent .desktop-nav,
 .site-header--transparent .language-link { color: white; }
 .desktop-nav { display: flex; align-items: center; gap: clamp(16px, 1.7vw, 30px); }
@@ -185,7 +180,7 @@ watch(
 .header-actions { display: flex; align-items: center; gap: 18px; }
 .language-link { display: inline-flex; align-items: center; gap: 7px; font-size: 13px; font-weight: 600; white-space: nowrap; }
 .language-link span { display: grid; width: 23px; height: 23px; place-items: center; border: 1px solid currentColor; border-radius: 50%; font-size: 10px; opacity: .7; }
-.header-cta { display: inline-flex; align-items: center; gap: 15px; padding: 12px 17px; border-radius: 8px; color: white; background: var(--accent); font-size: 13px; font-weight: 700; box-shadow: 0 10px 26px rgba(191,84,20,.2); transition: 180ms ease; white-space: nowrap; }
+.header-cta { display: inline-flex; align-items: center; gap: 15px; padding: 12px 17px; border-radius: 8px; color: white; background: var(--accent); font-size: 13px; font-weight: 700; box-shadow: 0 10px 26px rgba(11,77,184,.24); transition: 180ms ease; white-space: nowrap; }
 .header-cta:hover { background: var(--accent-dark); transform: translateY(-1px); }
 .header-cta span { font-size: 15px; }
 .menu-toggle { display: none; width: 44px; height: 44px; padding: 0; border: 1px solid rgba(23,25,21,.12); border-radius: 50%; background: rgba(255,255,255,.8); }
@@ -204,21 +199,16 @@ watch(
 @media (max-width: 1180px) {
   .desktop-nav { gap: 14px; }
   .nav-link { font-size: 13px; }
-  .brand-link { min-width: 190px; }
-  .brand-copy small { display: none; }
+  .brand-link { min-width: 270px; }
+  .company-logo { width: 258px; height: 52px; }
   .header-actions { gap: 10px; }
 }
 @media (max-width: 1023px) {
   .site-header { height: 74px; }
   .desktop-nav, .header-actions { display: none; }
   .menu-toggle { display: block; }
-  .brand-link { min-width: auto; }
-  .brand-mark { width: 40px; height: 40px; }
-  .brand-mark img { width: 31px; height: 31px; }
-  .site-header--transparent .brand-copy { color: white; }
+  .brand-link { min-width: 0; }
+  .company-logo { width: min(255px, 70vw); height: 48px; }
   .mobile-menu { top: 74px; }
-}
-@media (max-width: 420px) {
-  .brand-copy strong { font-size: 15px; letter-spacing: .1em; }
 }
 </style>

@@ -1,9 +1,9 @@
 <template>
   <div class="page-shell">
-    <SiteHeader />
+    <LayoutSiteHeader />
     <main>
       <slot />
     </main>
-    <SiteFooter />
+    <LayoutSiteFooter />
   </div>
 </template>

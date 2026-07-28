@@ -35,7 +35,7 @@ const submitted = ref(false)
         </aside>
         <div class="point-grid">
           <article v-for="(point, index) in featuredPoints" :key="point">
-            <span>0{{ index + 1 }}</span><h2>{{ point }}</h2><p>{{ isEnglish ? 'More detailed content will be maintained through the CMS and updated continuously.' : '相关详细内容后续由 CMS 持续维护与更新，支持中英文独立发布。' }}</p>
+            <span>0{{ index + 1 }}</span><h2>{{ point }}</h2><p>{{ isEnglish ? 'We focus on clear value, practical pathways and sustainable collaboration for every capability.' : '围绕核心价值、落地路径与合作方式，形成清晰、可持续的能力表达。' }}</p>
           </article>
         </div>
       </div>

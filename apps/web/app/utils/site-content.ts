@@ -75,7 +75,7 @@ export const siteContent: Record<LocaleCode, LocaleContent> = {
         title: '以政和智能体与重点产品矩阵支撑真实业务场景。',
         description: '首版围绕 AI 调解通、安防巡查、园区巡检等方向构建产品表达，强调痛点、能力、部署与案例价值。',
         highlights: ['产品矩阵', '场景方案', '本地化部署'],
-        featuredPoints: ['支持 PC 端、移动端与接口调用', '突出业务场景中的流程提效', '后续接入 CMS 做双语内容维护'],
+        featuredPoints: ['支持 PC 端、移动端与接口调用', '突出业务场景中的流程提效', '适配本地化部署与系统集成'],
       },
       platforms: {
         eyebrow: '创新平台',
@@ -94,7 +94,7 @@ export const siteContent: Record<LocaleCode, LocaleContent> = {
       cases: {
         eyebrow: '案例与动态',
         title: '通过案例、活动和新闻建立可信的品牌叙事。',
-        description: '首版以列表和详情结构承载客户案例、实践活动和新闻资讯，后续由 CMS 支持分类、置顶和中英文独立发布。',
+        description: '通过客户案例、实践活动和新闻资讯，持续呈现产品应用、平台建设与产业生态合作的最新进展。',
         highlights: ['案例展示', '动态发布', 'SEO 友好'],
         featuredPoints: ['适配分类与推荐阅读', '支持发布时间与置顶机制', '避免未翻译内容在英文站混排'],
       },
@@ -103,7 +103,7 @@ export const siteContent: Record<LocaleCode, LocaleContent> = {
         title: '以清晰的合作入口和咨询表单承接商务线索。',
         description: '表单固定收集姓名、机构、电话、邮箱、合作意向和留言信息，并保留隐私同意和来源字段。',
         highlights: ['合作咨询', '线索采集', '隐私同意'],
-        featuredPoints: ['电话或邮箱至少填写一项', '后续通过 BFF 接入 Strapi', '支持中英文来源标记'],
+        featuredPoints: ['电话或邮箱至少填写一项', '提交后由商务团队统一跟进', '支持产品、平台与产业服务咨询'],
       },
       privacy: {
         eyebrow: '隐私政策',
@@ -168,7 +168,7 @@ export const siteContent: Record<LocaleCode, LocaleContent> = {
         title: 'A portfolio of intelligent products and solution narratives for real business scenarios.',
         description: 'The first release highlights product positioning, pain points, capabilities, deployment choices and use-case value.',
         highlights: ['Product Portfolio', 'Scenario Solutions', 'Local Deployment'],
-        featuredPoints: ['Supports desktop, mobile and API-based access', 'Focuses on measurable workflow efficiency', 'Prepared for CMS-driven bilingual maintenance'],
+        featuredPoints: ['Supports desktop, mobile and API-based access', 'Focuses on measurable workflow efficiency', 'Fits private deployment and system integration'],
       },
       platforms: {
         eyebrow: 'Platforms',
@@ -187,7 +187,7 @@ export const siteContent: Record<LocaleCode, LocaleContent> = {
       cases: {
         eyebrow: 'Cases & News',
         title: 'Structured stories that turn projects, events and updates into credibility.',
-        description: 'The first release uses list-detail patterns ready for categorization, pinning and language-specific publishing in CMS.',
+        description: 'Explore product applications, platform progress and industrial ecosystem collaboration through cases, events and company news.',
         highlights: ['Case Stories', 'News Publishing', 'SEO Ready'],
         featuredPoints: ['Supports categories and related reading', 'Includes publish time and pinning', 'Keeps untranslated entries out of English pages'],
       },
@@ -196,7 +196,7 @@ export const siteContent: Record<LocaleCode, LocaleContent> = {
         title: 'A clear cooperation entry with an inquiry form built for lead capture.',
         description: 'The form collects name, organization, phone, email, intention and message with privacy consent and source tracking.',
         highlights: ['Lead Capture', 'Inquiry Form', 'Privacy'],
-        featuredPoints: ['Phone or email is required', 'BFF integration with Strapi comes next', 'Supports language-aware source tracking'],
+        featuredPoints: ['Phone or email is required', 'Inquiries are followed up by the business team', 'Supports product, platform and service inquiries'],
       },
       privacy: {
         eyebrow: 'Privacy Policy',

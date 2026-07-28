@@ -10,9 +10,9 @@
   --paper: #f6f6f1;
   --paper-deep: #ecece5;
   --white: #ffffff;
-  --accent: #e87524;
-  --accent-dark: #bf5414;
-  --accent-soft: #fff0e3;
+  --accent: #1769e0;
+  --accent-dark: #0b4db8;
+  --accent-soft: #eaf2ff;
   --night: #191d19;
 }
 
@@ -59,7 +59,7 @@ a {
 
 ::selection {
   color: var(--ink);
-  background: #f6b17f;
+  background: #afcbff;
 }
 
 .page-shell {
