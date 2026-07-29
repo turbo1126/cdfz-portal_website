@@ -26,3 +26,7 @@ apps/cms/.tmp
 apps/cms/.env
 
 postgres-data
+
+# Local browser-test artifacts
+.playwright-cli/
+output/

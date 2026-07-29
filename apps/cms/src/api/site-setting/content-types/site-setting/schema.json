@@ -1,0 +1,83 @@
+{
+  "kind": "singleType",
+  "collectionName": "site_settings",
+  "info": {
+    "singularName": "site-setting",
+    "pluralName": "site-settings",
+    "displayName": "site-settings"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "companyName": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "default": "上海成电福智科技有限公司"
+    },
+    "footerSlogan": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "default": "科技 · 产业 · 金融 · 人才"
+    },
+    "address": {
+      "type": "text",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "default": "上海市浦东新区南汇新城镇海洋二路88弄创新魔坊二期六号楼"
+    },
+     "email": {
+    "type": "email",
+    "pluginOptions": {
+      "i18n": {
+        "localized": true
+      }
+    }
+  },
+  "phone": {
+    "type": "string",
+    "pluginOptions": {
+      "i18n": {
+        "localized": true
+      }
+    }
+  },
+  "wechatAccountName": {
+    "type": "string",
+    "pluginOptions": {
+      "i18n": {
+        "localized": false
+      }
+    }
+  },
+  "wechatQrCode": {
+    "type": "media",
+    "multiple": false,
+    "required": false,
+    "allowedTypes": [
+      "images"
+    ],
+    "pluginOptions": {
+      "i18n": {
+        "localized": false
+      }
+    }
+  }
+  }
+}

@@ -67,20 +67,23 @@ useIntervalFn(() => {
   <section class="hero" @mouseenter="paused = true" @mouseleave="paused = false">
     <TransitionGroup name="hero-fade">
       <div v-if="activeSlide.visual === 'building'" :key="'building'" class="hero-background hero-building">
-        <img src="/brand/cdfz-building.png" alt="上海临港智能系统科创平台大楼" />
+        <img src="/images/platforms/lingang-building.png" alt="上海临港智能系统科创平台大楼" />
+      </div>
+      <div v-else-if="activeSlide.visual === 'products'" :key="'products'" class="hero-background hero-photo">
+        <img src="/images/hero/uestc-campus.jpg" alt="产品与解决方案轮播背景" />
       </div>
       <div v-else :key="activeSlide.visual" class="hero-background hero-abstract" :class="`hero-${activeSlide.visual}`">
+        <img
+          v-if="activeSlide.visual === 'platform'"
+          class="hero-platform-photo"
+          src="/images/hero/finance-center.jpg"
+          alt="创新平台轮播背景"
+        />
         <div class="grid-lines" />
         <div class="orbit orbit-one" />
         <div class="orbit orbit-two" />
-        <div v-if="activeSlide.visual === 'products'" class="product-visual">
-          <div class="visual-card visual-card-main"><span>AI</span><strong>政和智能体</strong><small>ZHENGHE AGENT</small></div>
-          <div class="visual-card visual-card-a"><span>01</span><strong>调解通</strong></div>
-          <div class="visual-card visual-card-b"><span>02</span><strong>视安盾</strong></div>
-          <div class="visual-card visual-card-c"><span>03</span><strong>巡检</strong></div>
-        </div>
-        <div v-else class="platform-visual">
-          <div class="platform-core"><img src="/brand/cdfz-logo.png" alt="" /><span>PILOT<br />PLATFORM</span></div>
+        <div class="platform-visual">
+          <div class="platform-core"><img src="/images/brand/cdfz-logo.png" alt="" /><span>PILOT<br />PLATFORM</span></div>
           <div class="platform-node node-a">性能测试</div>
           <div class="platform-node node-b">可靠性验证</div>
           <div class="platform-node node-c">工艺优化</div>
@@ -136,6 +139,8 @@ useIntervalFn(() => {
 .hero { position: relative; min-height: 760px; height: min(900px, 100svh); overflow: hidden; color: white; background: #242722; }
 .hero-background, .hero-shade { position: absolute; inset: 0; }
 .hero-building img { width: 100%; height: 100%; object-fit: cover; object-position: center 48%; transform: scale(1.015); animation: heroZoom 10s ease-out both; }
+.hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center center; transform: scale(1.015); animation: heroZoom 10s ease-out both; }
+.hero-platform-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center center; opacity: .72; filter: saturate(.9) contrast(1.04); transform: scale(1.02); }
 .hero-shade { z-index: 2; background: linear-gradient(90deg, rgba(19,21,18,.86) 0%, rgba(19,21,18,.66) 48%, rgba(19,21,18,.18) 100%), linear-gradient(180deg, rgba(10,12,10,.36) 0%, transparent 28%, rgba(10,12,10,.34) 100%); }
 .hero-abstract { overflow: hidden; background: radial-gradient(circle at 72% 45%, #5b5043 0, #282b27 39%, #171a17 75%); }
 .hero-platform { background: radial-gradient(circle at 70% 46%, #514e43 0, #252a25 39%, #151815 76%); }

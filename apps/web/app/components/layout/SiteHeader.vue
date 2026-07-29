@@ -74,7 +74,7 @@ watch(
       <NuxtLink :to="localePath('/')" class="brand-link" aria-label="上海成电福智首页">
         <img
           class="company-logo"
-          src="/brand/company-logo.png"
+          src="/images/brand/company-logo.png"
           alt="上海成电福智科技有限公司"
         />
       </NuxtLink>

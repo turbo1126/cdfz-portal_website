@@ -78,18 +78,18 @@ a {
   gap: 10px;
   margin: 0;
   color: var(--accent-dark);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
 }
 
-.section-kicker::before {
+/* .section-kicker::before {
   width: 26px;
   height: 2px;
   content: "";
   background: var(--accent);
-}
+} */
 
 .section-heading {
   margin: 18px 0 0;

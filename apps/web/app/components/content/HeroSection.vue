@@ -40,7 +40,7 @@ const content = computed(() => getLocaleContent(locale.value).hero)
     <div class="glass-panel relative overflow-hidden rounded-[2rem] p-5">
       <div class="absolute inset-0 bg-gradient-to-br from-cyan-300/12 via-transparent to-blue-500/20" />
       <img
-        src="/brand/cdfz-building.png"
+        src="/images/platforms/lingang-building.png"
         alt="上海成电福智大楼"
         class="relative h-full min-h-[320px] w-full rounded-[1.5rem] object-cover object-center"
       />

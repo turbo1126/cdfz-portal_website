@@ -1,81 +1,88 @@
 # 上海成电福智官方网站
 
-基于 `Nuxt 4 + Strapi 5 + PostgreSQL 16` 的中英文企业官网项目，面向品牌展示、产品获客、创新平台展示和合作线索收集。
+基于 `Nuxt 4 + Vue 3 + TypeScript + Strapi 5 + PostgreSQL 16` 的中英文企业官网。前端通过 Nuxt 服务端接口读取 Strapi，支持公司介绍、页脚信息、案例与动态，以及微信公众号文章外链。
+
+## 当前本地运行方式
+
+| 服务 | 当前运行位置 | 默认地址 | 说明 |
+|---|---|---|---|
+| Nuxt 官网 | Windows Node.js | `http://localhost:3000` | `apps/web` |
+| Strapi CMS | Windows Node.js | `http://localhost:1337` | `apps/cms` |
+| PostgreSQL | Docker Desktop | `localhost:5432` | 容器名 `cdfz-postgres` |
+| WSL | 未使用 | — | 当前开发不依赖 WSL |
+
+生产环境由 `compose.prod.yml` 启动 Nginx、Nuxt、Strapi 和 PostgreSQL 四个容器。
 
 ## 目录说明
 
-- `apps/web`：Nuxt 4 官网前端
-- `apps/cms`：Strapi 5 内容管理系统
-- `packages/contracts`：共享类型定义
-- `images`：原始品牌与素材文件
-- `references`：公司介绍与产品参考资料
-- `infra`：Docker 与 Nginx 相关配置
-- `.trae/documents`：PRD 与技术架构文档
-
-## 本地开发架构
-
-- Windows 主机 + WSL2 Ubuntu
-- `apps/web` 在 WSL 中运行 `pnpm dev`，默认端口 `3000`
-- `apps/cms` 在 WSL 中运行 `pnpm dev`，默认端口 `1337`
-- PostgreSQL 16 通过 Docker Desktop 运行，端口 `5432`
-
-## 初始化步骤
-
-1. 启动数据库
-
-```bash
-docker compose up -d
+```text
+cdfz-portal_website/
+├─ apps/
+│  ├─ web/                         Nuxt 官网、BFF 接口和线上静态图片
+│  │  ├─ app/components/           Vue 组件
+│  │  ├─ app/content/fallbacks/    CMS 不可用时的中英文回退内容
+│  │  ├─ app/pages/                明确的页面路由
+│  │  ├─ server/api/content/       面向前端的内容接口
+│  │  └─ public/images/            网站直接使用的原尺寸图片
+│  └─ cms/                         Strapi 内容模型、管理后台和媒体库
+├─ packages/contracts/             Web 与 CMS 共用的 TypeScript 类型
+├─ infra/                          Docker 镜像和 Nginx 配置
+├─ docs/                           架构、需求、开发、内容和部署文档
+├─ references/
+│  ├─ company-materials/           公司原始资料
+│  └─ assets-original/             未压缩的原始图片与备用版本
+├─ compose.yml                     本地 PostgreSQL
+└─ compose.prod.yml                生产全容器编排
 ```
 
-2. 安装根工作区依赖
+`apps/web` 是访客看到的网站；`apps/cms` 是内部人员登录后维护内容的后台。两者是独立应用，通过 HTTP API 连接，不应把 Strapi 页面代码写入 `apps/web`，也不应把官网组件放入 `apps/cms`。
 
-```bash
+## Windows 开发环境
+
+需要安装：
+
+- Node.js 22 LTS
+- pnpm 11
+- Docker Desktop
+- Git
+
+首次启动：
+
+```powershell
+docker compose up -d postgres
 pnpm install
-```
-
-3. 复制环境变量
-
-```bash
-cp .env.example apps/cms/.env
-```
-
-根据需要补充 `apps/web/.env`，至少包含：
-
-```bash
-NUXT_PUBLIC_SITE_URL=http://localhost:3000
-NUXT_INTERNAL_STRAPI_URL=http://localhost:1337
-NUXT_PUBLIC_STRAPI_URL=http://localhost:1337
-NUXT_PUBLIC_DEFAULT_LOCALE=zh-CN
-```
-
-4. 分别启动前端与 CMS
-
-```bash
-pnpm dev:web
+Copy-Item apps/cms/.env.example apps/cms/.env
+Copy-Item apps/web/.env.example apps/web/.env
 pnpm dev:cms
+pnpm dev:web
 ```
+
+建议分别在两个 PowerShell 终端运行 `pnpm dev:cms` 和 `pnpm dev:web`。详细说明见 [本地开发文档](docs/local-development.md)。
+
+## 内容更新
+
+访问 `http://localhost:1337/admin` 登录 Strapi：
+
+- `Site Setting`：更新公司名称、页脚标语、地址、电话、邮箱和微信公众号二维码。
+- `About Page`：更新“关于我们”页面；中文和英文需要切换 Locale 分别编辑并发布。
+- `Case Article`：发布客户案例、公司动态和活动资讯。`internal` 在本站渲染正文，`external` 跳转到微信公众号文章。
+
+详细字段和发布流程见 [CMS 内容维护指南](docs/cms-content-guide.md)。
 
 ## 常用命令
 
-```bash
-pnpm dev
+```powershell
 pnpm dev:web
 pnpm dev:cms
-pnpm build
-pnpm check
+pnpm typecheck
+pnpm test
+pnpm build:web
+pnpm build:cms
 ```
 
-## 当前初始化内容
+更多资料：
 
-- 已建立 `pnpm workspace`
-- 已生成 `Strapi 5` CMS 工程并接入 PostgreSQL 配置
-- 已创建 `Nuxt 4` 官网前端骨架与基础页面结构
-- 已复制品牌图片到前端 `public/brand`
-- 已补充本地 Docker Compose、生产 Compose 和 Nginx 骨架
-
-## 下一步建议
-
-- 建立 Strapi 内容模型与种子数据
-- 接入 Nuxt BFF 内容接口
-- 将静态占位内容替换为 CMS 驱动内容
-- 完善中英文文案、SEO 与表单提交流程
+- [技术架构](docs/architecture.md)
+- [产品需求](docs/product-requirements.md)
+- [实施方案](docs/implementation-plan.md)
+- [部署说明](docs/deployment.md)
