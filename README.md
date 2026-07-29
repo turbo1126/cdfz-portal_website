@@ -2,6 +2,8 @@
 
 基于 `Nuxt 4 + Vue 3 + TypeScript + Strapi 5 + PostgreSQL 16` 的中英文企业官网。前端通过 Nuxt 服务端接口读取 Strapi，支持公司介绍、页脚信息、案例与动态，以及微信公众号文章外链。
 
+![alt text](image-1.png)
+
 ## 当前本地运行方式
 
 | 服务 | 当前运行位置 | 默认地址 | 说明 |
