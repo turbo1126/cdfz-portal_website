@@ -5,8 +5,8 @@ import type {
 } from '@cdfz/contracts'
 
 const localeCandidates: Record<LocaleCode, string[]> = {
-  'zh-CN': ['zh-CN', 'zh'],
-  'en-US': ['en-US', 'en'],
+  'zh-CN': ['zh-CN'],
+  'en-US': ['en'],
 }
 
 type StrapiQuery = Record<string, boolean | number | string | undefined>

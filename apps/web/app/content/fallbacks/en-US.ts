@@ -22,17 +22,29 @@ export const enUSContent = {
     platforms: [
       {
         no: '01',
+        slug: 'lingang-intelligent-systems',
+        cover: '/images/platforms/lingang-building.png',
         title: 'Shanghai Lingang Intelligent Systems Innovation Platform',
         short: 'Intelligent systems innovation',
         description: 'Connect technology R&D, scenario validation, achievement transformation and ecosystem collaboration to accelerate industrial application.',
         tags: ['Technology R&D', 'Scenario validation', 'Transformation'],
+        body: [
+          'The Shanghai Lingang Intelligent Systems Innovation Platform connects university, state-owned capital, industry and application resources in one innovation network.',
+          'It supports key technology R&D, scenario validation and product incubation, helping laboratory outcomes mature into deployable solutions for real industrial environments.',
+        ],
       },
       {
         no: '02',
+        slug: 'embodied-robotics-pilot',
+        cover: '/images/platforms/pilot-platform.jpg',
         title: 'Embodied Robotics Components Pilot Platform',
         short: 'Robotics pilot validation',
         description: 'Provide shared engineering verification and scale-up support for core components such as joint modules, motors, reducers and actuators.',
         tags: ['Pilot testing', 'Reliability', 'Scale-up'],
+        body: [
+          'The platform serves robotics manufacturers and core component suppliers across prototype development, engineering validation and scale-up.',
+          'It focuses on joint modules, motors, reducers and actuators, providing performance tests, reliability verification, process optimization and supply-chain adaptation.',
+        ],
       },
     ],
     products: [

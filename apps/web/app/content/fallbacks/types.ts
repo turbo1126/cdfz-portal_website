@@ -15,10 +15,13 @@ export type SectionKey = 'about' | 'products' | 'platforms' | 'services' | 'case
 
 export type HomePlatformItem = {
   no: string
+  slug: string
+  cover: string
   title: string
   short: string
   description: string
   tags: string[]
+  body: string[]
 }
 
 export type HomeProductItem = {

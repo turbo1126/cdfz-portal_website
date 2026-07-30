@@ -3,7 +3,7 @@ import type { AboutPage } from '@cdfz/contracts'
 import { getLocaleContent } from '~/utils/site-content'
 
 const { locale } = useI18n()
-const isEnglish = computed(() => locale.value === 'en-US')
+const isEnglish = computed(() => locale.value.startsWith('en'))
 const fallback = computed(() => getLocaleContent(locale.value).sections.about)
 
 const { data: aboutPage } = await useAsyncData<AboutPage>(

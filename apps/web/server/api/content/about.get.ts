@@ -17,16 +17,35 @@ export default defineEventHandler(async (event): Promise<AboutPage> => {
       locale,
     )
 
-    if (!aboutPage) {
+    const needsChineseFallback = locale === 'en-US' && (!aboutPage
+      || !aboutPage.eyebrow?.trim()
+      || !aboutPage.title?.trim()
+      || !aboutPage.description?.trim()
+      || !aboutPage.highlights?.length
+      || !aboutPage.featuredPoints?.length)
+
+    const chineseFallbackPage = needsChineseFallback
+      ? await fetchLocalizedSingleType<AboutPage>(
+          strapiUrl,
+          '/api/about-page',
+          'zh-CN',
+        )
+      : null
+
+    if (!aboutPage && !chineseFallbackPage) {
       return {}
     }
 
     return {
-      eyebrow: aboutPage.eyebrow,
-      title: aboutPage.title,
-      description: aboutPage.description,
-      highlights: aboutPage.highlights,
-      featuredPoints: aboutPage.featuredPoints,
+      eyebrow: aboutPage?.eyebrow?.trim() || chineseFallbackPage?.eyebrow,
+      title: aboutPage?.title?.trim() || chineseFallbackPage?.title,
+      description: aboutPage?.description?.trim() || chineseFallbackPage?.description,
+      highlights: aboutPage?.highlights?.length
+        ? aboutPage.highlights
+        : chineseFallbackPage?.highlights,
+      featuredPoints: aboutPage?.featuredPoints?.length
+        ? aboutPage.featuredPoints
+        : chineseFallbackPage?.featuredPoints,
     }
   }
   catch (error) {

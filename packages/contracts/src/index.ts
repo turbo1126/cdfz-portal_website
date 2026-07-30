@@ -66,6 +66,40 @@ export type AboutPage = {
   featuredPoints?: AboutFeaturePoint[] | null
 }
 
+export type HomeHeroSlide = {
+  id?: number
+  documentId?: string
+  name?: string | null
+  tag: string
+  title: string
+  description: string
+  backgroundImage?: StrapiMedia | null
+  backgroundPosition?: string | null
+  primaryLabel?: string | null
+  primaryLink?: string | null
+  secondaryLabel?: string | null
+  secondaryLink?: string | null
+  sortOrder?: number | null
+  enabled?: boolean
+  publishedAt?: string | null
+}
+
+export type InnovationPlatform = {
+  id?: number
+  documentId?: string
+  title: string
+  slug: string
+  shortName?: string | null
+  eyebrow?: string | null
+  summary: string
+  tags?: string[] | null
+  cover?: StrapiMedia | null
+  content?: RichTextBlock[] | null
+  sortOrder?: number | null
+  featured?: boolean
+  publishedAt?: string | null
+}
+
 export type ArticleCategory = 'case' | 'news' | 'event'
 
 export type ArticleContentMode = 'internal' | 'external'

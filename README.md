@@ -75,6 +75,7 @@ pnpm dev:web
 
 ```powershell
 pnpm dev:web
+ pnpm dev:web -- --host 0.0.0.0
 pnpm dev:cms
 pnpm typecheck
 pnpm test
