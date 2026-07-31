@@ -5,6 +5,7 @@ const isEnglish = computed(() => locale.value === 'en-US')
 
 <template>
   <section class="trust-section">
+    <HomeTechPattern variant="trust" />
     <div class="site-container trust-grid">
       <div class="trust-intro"><p class="section-kicker">{{ isEnglish ? 'TRUSTED FOUNDATION' : '可信能力背书' }}</p><h2>{{ isEnglish ? 'Building long-term value through open collaboration.' : '以开放协同，构建长期产业价值。' }}</h2></div>
       <div class="trust-stat"><strong>2021</strong><span>{{ isEnglish ? 'Founded in Shanghai' : '成立于上海' }}</span></div>
@@ -16,7 +17,8 @@ const isEnglish = computed(() => locale.value === 'en-US')
 </template>
 
 <style scoped>
-.trust-section { padding: 72px 0 40px; border-bottom: 1px solid var(--line); background: #edede6; }
+.trust-section { position: relative; overflow: hidden; padding: 72px 0 40px; border-bottom: 1px solid var(--line); background: #edede6; }
+.trust-grid, .data-note { position: relative; z-index: 1; }
 .trust-grid { display: grid; grid-template-columns: 1.35fr repeat(3, .65fr); gap: 24px; align-items: end; }
 .trust-intro h2 { max-width: 490px; margin: 17px 0 0; font-size: 31px; font-weight: 520; letter-spacing: -.035em; line-height: 1.35; }
 .trust-stat { display: flex; min-height: 135px; flex-direction: column; justify-content: flex-end; padding-left: 25px; border-left: 1px solid #cfcfc7; }

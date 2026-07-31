@@ -16,6 +16,7 @@ const platforms = computed(() => mergePlatformsWithFallbacks(cmsPlatforms.value,
 
 <template>
   <section id="platforms" class="platform-section">
+    <HomeTechPattern variant="platform" />
     <div class="site-container">
       <div class="intro-grid">
         <div>
@@ -36,7 +37,8 @@ const platforms = computed(() => mergePlatformsWithFallbacks(cmsPlatforms.value,
 </template>
 
 <style scoped>
-.platform-section { padding: 88px 0 94px; }
+.platform-section { position: relative; overflow: hidden; padding: 88px 0 94px; }
+.platform-section > .site-container { position: relative; z-index: 1; }
 .intro-grid { display: grid; grid-template-columns: 1.08fr .92fr; gap: 64px; align-items: end; }
 .platform-more { margin-top: 22px; }
 .platform-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-top: 48px; }

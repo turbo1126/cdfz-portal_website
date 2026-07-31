@@ -80,6 +80,7 @@ const newsLinkAttributes = (item: HomeNewsItem) => item.external
 
 <template>
   <section class="news-section">
+    <HomeTechPattern variant="news" />
     <div class="site-container">
       <div class="news-heading">
         <div><p class="section-kicker">{{ isEnglish ? 'CASES & NEWS' : '案例与动态' }}</p><h2 class="section-heading">{{ isEnglish ? 'See innovation happening.' : '看见创新，正在真实发生。' }}</h2></div>
@@ -104,7 +105,8 @@ const newsLinkAttributes = (item: HomeNewsItem) => item.external
 </template>
 
 <style scoped>
-.news-section { padding: 118px 0; }
+.news-section { position: relative; overflow: hidden; padding: 118px 0; }
+.news-section > .site-container { position: relative; z-index: 1; }
 .news-heading { display: flex; align-items: end; justify-content: space-between; gap: 45px; }
 .news-list { margin-top: 60px; border-top: 1px solid var(--line); }
 .news-item { display: grid; grid-template-columns: 110px 100px 1fr 44px; align-items: center; gap: 25px; min-height: 116px; padding: 18px 3px; border-bottom: 1px solid var(--line); transition: 180ms ease; }

@@ -26,10 +26,12 @@ export type HomePlatformItem = {
 
 export type HomeProductItem = {
   no: string
+  slug: string
   title: string
   category: string
   description: string
   tags: string[]
+  body: string[]
 }
 
 export type HomeCapabilityStep = {

@@ -614,6 +614,110 @@ export interface ApiCaseArticleCaseArticle extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiCoreProductCoreProduct extends Struct.CollectionTypeSchema {
+  collectionName: 'core_products';
+  info: {
+    description: '\u7BA1\u7406\u9996\u9875\u4EA7\u54C1\u77E9\u9635\u3001\u4EA7\u54C1\u5217\u8868\u548C\u4EA7\u54C1\u8BE6\u60C5\u9875';
+    displayName: '\u6838\u5FC3\u4EA7\u54C1';
+    pluralName: 'core-products';
+    singularName: 'core-product';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    category: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    content: Schema.Attribute.Blocks &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    cover: Schema.Attribute.Media<'images'> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    featured: Schema.Attribute.Boolean &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<true>;
+    icon: Schema.Attribute.Media<'images'> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::core-product.core-product'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.UID<'title'> &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    sortOrder: Schema.Attribute.Integer &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }> &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<0>;
+    summary: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    tags: Schema.Attribute.Component<'shared.text-item', true> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiHomeHeroSlideHomeHeroSlide
   extends Struct.CollectionTypeSchema {
   collectionName: 'home_hero_slides';
@@ -1426,6 +1530,7 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::about-page.about-page': ApiAboutPageAboutPage;
       'api::case-article.case-article': ApiCaseArticleCaseArticle;
+      'api::core-product.core-product': ApiCoreProductCoreProduct;
       'api::home-hero-slide.home-hero-slide': ApiHomeHeroSlideHomeHeroSlide;
       'api::innovation-platform.innovation-platform': ApiInnovationPlatformInnovationPlatform;
       'api::site-setting.site-setting': ApiSiteSettingSiteSetting;

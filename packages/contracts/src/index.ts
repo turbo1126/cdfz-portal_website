@@ -100,6 +100,22 @@ export type InnovationPlatform = {
   publishedAt?: string | null
 }
 
+export type CoreProduct = {
+  id?: number
+  documentId?: string
+  title: string
+  slug: string
+  category: string
+  summary: string
+  tags?: string[] | null
+  icon?: StrapiMedia | null
+  cover?: StrapiMedia | null
+  content?: RichTextBlock[] | null
+  sortOrder?: number | null
+  featured?: boolean
+  publishedAt?: string | null
+}
+
 export type ArticleCategory = 'case' | 'news' | 'event'
 
 export type ArticleContentMode = 'internal' | 'external'

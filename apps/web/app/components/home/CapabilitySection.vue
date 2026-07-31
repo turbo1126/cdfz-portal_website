@@ -9,6 +9,7 @@ const capabilitySteps = computed(() => getLocaleContent(locale.value).home.capab
 
 <template>
   <section id="capability" class="capability-section">
+    <HomeTechPattern variant="capability" />
     <div class="site-container capability-layout">
       <div class="capability-copy">
         <p class="section-kicker">{{ isEnglish ? 'FULL-CYCLE CAPABILITY' : '全链路能力闭环' }}</p>
@@ -28,8 +29,9 @@ const capabilitySteps = computed(() => getLocaleContent(locale.value).home.capab
 </template>
 
 <style scoped>
-.capability-section { padding: 120px 0; color: white; background: var(--night); }
+.capability-section { position: relative; overflow: hidden; padding: 120px 0; color: white; background: var(--night); }
 .capability-layout { display: grid; grid-template-columns: .92fr 1.08fr; gap: 100px; align-items: center; }
+.capability-layout { position: relative; z-index: 1; }
 .capability-section .section-heading { max-width: 570px; }
 .capability-section .section-description { color: rgba(255,255,255,.58); }
 .capability-button { display: inline-flex; align-items: center; gap: 45px; margin-top: 38px; padding: 15px 18px; border: 1px solid rgba(255,255,255,.17); border-radius: 7px; font-size: 13px; font-weight: 700; transition: 180ms ease; }
