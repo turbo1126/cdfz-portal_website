@@ -36,12 +36,13 @@ const childMenus = computed<Record<string, { label: string; hash: string }[]>>((
     : {
         '/products': [
           { label: 'AI 调解通', hash: '#products' },
+          { label: 'AI房屋管理通', hash: '#products' },
           { label: '视安盾', hash: '#products' },
           { label: '巡检小旋风', hash: '#products' },
         ],
         '/platforms': [
           { label: '临港智能系统科创平台', hash: '#platforms' },
-          { label: '具身智能零部件中试平台', hash: '#platforms' },
+          { label: '上海人形机器人具身智能零部件中试平台', hash: '#platforms' },
         ],
         '/services': [
           { label: '研发孵化', hash: '#capability' },
@@ -187,7 +188,19 @@ watch(
 .menu-toggle span { display: block; width: 18px; height: 1.5px; margin: 5px auto; background: var(--ink); transition: 180ms ease; }
 .menu-toggle span:first-child.open { transform: translateY(3.25px) rotate(45deg); }
 .menu-toggle span:last-child.open { transform: translateY(-3.25px) rotate(-45deg); }
-.mobile-menu { position: fixed; inset: 86px 0 0; overflow-y: auto; background: #f6f6f1; }
+.mobile-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  left: 0;
+  z-index: 1;
+  height: calc(100vh - 86px);
+  height: calc(100dvh - 86px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: #f6f6f1;
+  -webkit-overflow-scrolling: touch;
+}
 .mobile-menu-inner { padding-top: 24px; padding-bottom: 50px; }
 .mobile-nav-link { display: grid; grid-template-columns: 32px 1fr auto; align-items: center; padding: 20px 3px; border-bottom: 1px solid var(--line); font-size: clamp(23px, 7vw, 34px); font-weight: 540; letter-spacing: -.03em; }
 .mobile-nav-link span { color: var(--accent-dark); font-size: 10px; font-weight: 700; letter-spacing: .12em; }
@@ -209,6 +222,9 @@ watch(
   .menu-toggle { display: block; }
   .brand-link { min-width: 0; }
   .company-logo { width: min(255px, 70vw); height: 48px; }
-  .mobile-menu { top: 74px; }
+  .mobile-menu {
+    height: calc(100vh - 74px);
+    height: calc(100dvh - 74px);
+  }
 }
 </style>

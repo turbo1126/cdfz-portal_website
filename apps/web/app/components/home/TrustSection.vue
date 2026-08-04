@@ -8,11 +8,11 @@ const isEnglish = computed(() => locale.value === 'en-US')
     <HomeTechPattern variant="trust" />
     <div class="site-container trust-grid">
       <div class="trust-intro"><p class="section-kicker">{{ isEnglish ? 'TRUSTED FOUNDATION' : '可信能力背书' }}</p><h2>{{ isEnglish ? 'Building long-term value through open collaboration.' : '以开放协同，构建长期产业价值。' }}</h2></div>
-      <div class="trust-stat"><strong>2021</strong><span>{{ isEnglish ? 'Founded in Shanghai' : '成立于上海' }}</span></div>
-      <div class="trust-stat"><strong>2</strong><span>{{ isEnglish ? 'Core innovation platforms' : '核心创新平台' }}</span></div>
+      <div class="trust-stat"><strong>2021</strong><span>{{ isEnglish ? 'Founded in Shanghai' : '成立于上海临港新片区' }}</span></div>
+      <div class="trust-stat"><strong>2</strong><span>{{ isEnglish ? 'Core innovation platforms' : '承载核心创新平台' }}</span></div>
       <div class="trust-stat"><strong>4</strong><span>{{ isEnglish ? 'Full-cycle service stages' : '全链路服务阶段' }}</span></div>
     </div>
-    <p class="data-note">{{ isEnglish ? '* Publicity data is subject to final review before launch.' : '* 具体资质、知识产权与服务数据将在上线前完成最终审核后发布。' }}</p>
+    <p class="data-note">{{ isEnglish ? '* Publicity data is subject to final review before launch.' : '* 具体资质、知识产权与服务数据以最新情况为准。' }}</p>
   </section>
 </template>
 

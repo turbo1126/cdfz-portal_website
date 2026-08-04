@@ -3,23 +3,30 @@ import type { CaseArticle } from '@cdfz/contracts'
 
 const props = defineProps<{
   article: CaseArticle
+  to?: string
 }>()
 
 const { locale } = useI18n()
 const localePath = useLocalePath()
 const isEnglish = computed(() => locale.value === 'en-US')
 const NuxtLinkComponent = resolveComponent('NuxtLink')
-const isExternal = computed(() => props.article.contentMode === 'external' && Boolean(props.article.externalUrl))
+const isExternal = computed(() => !props.to && props.article.contentMode === 'external' && Boolean(props.article.externalUrl))
 const linkComponent = computed(() => isExternal.value ? 'a' : NuxtLinkComponent)
-const linkAttributes = computed(() => isExternal.value
-  ? {
-      href: props.article.externalUrl || '#',
-      target: '_blank',
-      rel: 'noopener noreferrer',
-    }
-  : {
-      to: localePath(`/cases/${props.article.slug}`),
-    })
+const linkAttributes = computed(() => {
+  if (props.to) {
+    return { to: props.to }
+  }
+
+  return isExternal.value
+    ? {
+        href: props.article.externalUrl || '#',
+        target: '_blank',
+        rel: 'noopener noreferrer',
+      }
+    : {
+        to: localePath(`/cases/${props.article.slug}`),
+      }
+})
 
 const categoryLabel = computed(() => {
   const labels = isEnglish.value

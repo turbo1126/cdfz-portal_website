@@ -17,7 +17,8 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  /* 路由切换时由 Vue Router 直接定位到新页面顶部，避免先显示旧页面底部再平滑滚动。 */
+  scroll-behavior: auto;
 }
 
 html,

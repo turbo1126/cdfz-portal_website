@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { AboutFeaturePoint } from '@cdfz/contracts'
+import type { AboutFeaturePoint, InquiryPayload, InquiryResponse } from '@cdfz/contracts'
 
 const props = defineProps<{
   eyebrow: string
@@ -16,6 +16,69 @@ const isEnglish = computed(() => locale.value.startsWith('en'))
 const isAbout = computed(() => route.path.endsWith('/about'))
 const isContact = computed(() => route.path.endsWith('/contact'))
 const submitted = ref(false)
+const submitting = ref(false)
+const submitError = ref('')
+const inquiryForm = reactive({
+  name: '',
+  organization: '',
+  phone: '',
+  email: '',
+  intention: 'product-demo',
+  message: '',
+  privacyConsent: false,
+  website: '',
+})
+
+const submitInquiry = async () => {
+  submitError.value = ''
+
+  if (!inquiryForm.phone.trim() && !inquiryForm.email.trim()) {
+    submitError.value = isEnglish.value
+      ? 'Please provide a phone number or email address.'
+      : '电话或邮箱至少填写一项。'
+    return
+  }
+
+  if (!inquiryForm.privacyConsent) {
+    submitError.value = isEnglish.value
+      ? 'Please accept the privacy policy.'
+      : '请先阅读并同意隐私政策。'
+    return
+  }
+
+  submitting.value = true
+
+  try {
+    const payload: InquiryPayload & { website: string } = {
+      name: inquiryForm.name,
+      organization: inquiryForm.organization,
+      phone: inquiryForm.phone,
+      email: inquiryForm.email,
+      intention: inquiryForm.intention,
+      message: inquiryForm.message,
+      language: isEnglish.value ? 'en-US' : 'zh-CN',
+      source: route.path,
+      privacyConsent: true,
+      website: inquiryForm.website,
+    }
+
+    await $fetch<InquiryResponse>('/api/inquiries', {
+      method: 'POST',
+      body: payload,
+    })
+
+    submitted.value = true
+  }
+  catch (error) {
+    const responseError = error as { data?: { statusMessage?: string } }
+    submitError.value = responseError.data?.statusMessage || (isEnglish.value
+      ? 'Submission failed. Please try again later.'
+      : '提交失败，请稍后再试。')
+  }
+  finally {
+    submitting.value = false
+  }
+}
 
 const toParagraphs = (value?: string | null) => (value || '')
   .replace(/\\n/g, '\n')
@@ -143,18 +206,20 @@ const pointParagraphs = (point: string | AboutFeaturePoint, index = 0) => toPara
 
     <section v-if="isContact" class="inquiry-section">
       <div class="site-container inquiry-layout">
-        <div><p class="section-kicker">{{ isEnglish ? 'COOPERATION INQUIRY' : '合作咨询' }}</p><h2>{{ isEnglish ? 'Tell us about your needs.' : '告诉我们，您希望解决什么问题。' }}</h2><p>{{ isEnglish ? 'Phone or email is required. The form will connect to the CMS lead system before launch.' : '电话或邮箱至少填写一项。表单将在上线前接入 CMS 线索系统。' }}</p></div>
-        <form v-if="!submitted" class="inquiry-form" @submit.prevent="submitted = true">
-          <label><span>{{ isEnglish ? 'Name' : '姓名' }} *</span><input required :placeholder="isEnglish ? 'Your name' : '请输入姓名'" /></label>
-          <label><span>{{ isEnglish ? 'Organization' : '机构 / 公司' }}</span><input :placeholder="isEnglish ? 'Organization name' : '请输入机构或公司名称'" /></label>
-          <label><span>{{ isEnglish ? 'Phone' : '联系电话' }}</span><input type="tel" :placeholder="isEnglish ? 'Phone number' : '请输入联系电话'" /></label>
-          <label><span>{{ isEnglish ? 'Email' : '电子邮箱' }}</span><input type="email" placeholder="name@example.com" /></label>
-          <label class="wide"><span>{{ isEnglish ? 'Cooperation intention' : '合作意向' }}</span><select><option>{{ isEnglish ? 'Product demo' : '产品演示' }}</option><option>{{ isEnglish ? 'Platform cooperation' : '平台合作' }}</option><option>{{ isEnglish ? 'Industrial services' : '产业服务' }}</option><option>{{ isEnglish ? 'Other' : '其他合作' }}</option></select></label>
-          <label class="wide"><span>{{ isEnglish ? 'Message' : '需求留言' }}</span><textarea rows="4" :placeholder="isEnglish ? 'Briefly describe your needs' : '请简要描述您的需求与应用场景'" /></label>
-          <label class="privacy wide"><input required type="checkbox" /><span>{{ isEnglish ? 'I agree to the privacy policy and the processing of inquiry information.' : '我已阅读并同意隐私政策及咨询信息处理说明。' }}</span></label>
-          <button type="submit">{{ isEnglish ? 'Submit inquiry' : '提交合作咨询' }}<span>↗</span></button>
+        <div><p class="section-kicker">{{ isEnglish ? 'COOPERATION INQUIRY' : '合作咨询' }}</p><h2>{{ isEnglish ? 'Tell us about your needs.' : '告诉我们，您希望解决什么问题。' }}</h2><p>{{ isEnglish ? 'Phone or email is required. Our business team will follow up after submission.' : '电话或邮箱至少填写一项。提交后将由商务团队统一跟进。' }}</p></div>
+        <form v-if="!submitted" class="inquiry-form" @submit.prevent="submitInquiry">
+          <label><span>{{ isEnglish ? 'Name' : '姓名' }} *</span><input v-model="inquiryForm.name" required maxlength="100" autocomplete="name" :placeholder="isEnglish ? 'Your name' : '请输入姓名'" /></label>
+          <label><span>{{ isEnglish ? 'Organization' : '机构 / 公司' }}</span><input v-model="inquiryForm.organization" maxlength="200" autocomplete="organization" :placeholder="isEnglish ? 'Organization name' : '请输入机构或公司名称'" /></label>
+          <label><span>{{ isEnglish ? 'Phone' : '联系电话' }}</span><input v-model="inquiryForm.phone" type="tel" maxlength="50" autocomplete="tel" :placeholder="isEnglish ? 'Phone number' : '请输入联系电话'" /></label>
+          <label><span>{{ isEnglish ? 'Email' : '电子邮箱' }}</span><input v-model="inquiryForm.email" type="email" maxlength="320" autocomplete="email" placeholder="name@example.com" /></label>
+          <label class="wide"><span>{{ isEnglish ? 'Cooperation intention' : '合作意向' }}</span><select v-model="inquiryForm.intention"><option value="product-demo">{{ isEnglish ? 'Product demo' : '产品演示' }}</option><option value="platform-cooperation">{{ isEnglish ? 'Platform cooperation' : '平台合作' }}</option><option value="industrial-services">{{ isEnglish ? 'Industrial services' : '产业服务' }}</option><option value="other">{{ isEnglish ? 'Other' : '其他合作' }}</option></select></label>
+          <label class="wide"><span>{{ isEnglish ? 'Message' : '需求留言' }}</span><textarea v-model="inquiryForm.message" rows="4" maxlength="5000" :placeholder="isEnglish ? 'Briefly describe your needs' : '请简要描述您的需求与应用场景'" /></label>
+          <label class="inquiry-honeypot" aria-hidden="true"><span>Website</span><input v-model="inquiryForm.website" type="text" tabindex="-1" autocomplete="off" /></label>
+          <label class="privacy wide"><input v-model="inquiryForm.privacyConsent" required type="checkbox" /><span>{{ isEnglish ? 'I agree to the privacy policy and the processing of inquiry information.' : '我已阅读并同意隐私政策及咨询信息处理说明。' }}</span></label>
+          <p v-if="submitError" class="submit-error wide" role="alert">{{ submitError }}</p>
+          <button type="submit" :disabled="submitting">{{ submitting ? (isEnglish ? 'Submitting...' : '正在提交...') : (isEnglish ? 'Submit inquiry' : '提交合作咨询') }}<span>↗</span></button>
         </form>
-        <div v-else class="success-message"><strong>✓</strong><h3>{{ isEnglish ? 'Thank you for your inquiry.' : '感谢您的咨询。' }}</h3><p>{{ isEnglish ? 'The form is currently a front-end demonstration. CMS submission will be enabled before launch.' : '当前为前端交互演示，上线前将接入 CMS 完成真实提交与通知。' }}</p></div>
+        <div v-else class="success-message"><strong>✓</strong><h3>{{ isEnglish ? 'Thank you for your inquiry.' : '感谢您的咨询。' }}</h3><p>{{ isEnglish ? 'Your inquiry has been saved. Our business team will contact you using the details provided.' : '您的咨询已成功保存，商务团队将通过您预留的联系方式与您联系。' }}</p></div>
       </div>
     </section>
   </div>
@@ -218,4 +283,7 @@ const pointParagraphs = (point: string | AboutFeaturePoint, index = 0) => toPara
 .inquiry-section { padding: 100px 0; background: #edede6; }.inquiry-layout { display: grid; grid-template-columns: .72fr 1.28fr; gap: 85px; }.inquiry-layout > div:first-child h2 { margin: 20px 0 0; font-size: 45px; font-weight: 500; letter-spacing: -.045em; line-height: 1.2; }.inquiry-layout > div:first-child > p:last-child { color: var(--muted); font-size: 14px; line-height: 1.8; }.inquiry-form { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; padding: 35px; border-radius: 15px; background: #fff; box-shadow: 0 24px 65px rgba(30,32,28,.08); }.inquiry-form label { display: flex; flex-direction: column; gap: 9px; }.inquiry-form label > span { color: #696c65; font-size: 11px; font-weight: 650; }.inquiry-form input,.inquiry-form select,.inquiry-form textarea { width: 100%; padding: 13px 14px; border: 1px solid var(--line); border-radius: 7px; color: var(--ink); background: #fafaf7; font-size: 13px; }.inquiry-form textarea { resize: vertical; }.wide { grid-column: 1 / -1; }.privacy { flex-direction: row!important; align-items: center; }.privacy input { width: 16px; }.inquiry-form button { display: flex; grid-column: 1 / -1; align-items: center; justify-content: space-between; padding: 15px 18px; border: 0; border-radius: 7px; color: white; background: var(--accent); font-size: 13px; font-weight: 700; cursor: pointer; }.success-message { align-self: stretch; padding: 60px; border-radius: 15px; background: white; text-align: center; }.success-message strong { display: grid; width: 64px; height: 64px; margin: 0 auto; place-items: center; border-radius: 50%; color: white; background: var(--accent); font-size: 26px; }.success-message h3 { margin: 24px 0 0; font-size: 27px; }.success-message p { color: var(--muted); font-size: 13px; line-height: 1.7; }
 @media (max-width: 900px) { .content-layout,.inquiry-layout { grid-template-columns: 1fr; gap: 45px; }.point-grid { grid-template-columns: 1fr 1fr; }.about-hero-inner { grid-template-columns: minmax(0,1fr) 210px; gap: 44px; }.about-hero-mark { width: 210px; height: 238px; padding: 26px; }.about-hero-mark strong { font-size: 52px; }.about-layout { grid-template-columns: 220px minmax(0,1fr); gap: 36px; }.about-index { padding: 24px; }.about-point-list { grid-template-columns: 1fr; }.about-point-list article { min-height: 190px; } }
 @media (max-width: 767px) { .section-page { padding-top: 74px; }.page-hero { padding: 70px 0 76px; }.page-breadcrumb { margin-bottom: 40px; }.page-content { padding: 70px 0 80px; }.point-grid { grid-template-columns: 1fr; }.point-grid article { min-height: 245px; }.point-grid h2 { margin-top: 42px; }.inquiry-section { padding: 75px 0; }.inquiry-layout > div:first-child h2 { font-size: 36px; }.inquiry-form { grid-template-columns: 1fr; padding: 23px; }.wide { grid-column: auto; }.about-hero { min-height: auto; padding: 55px 0 65px; }.about-hero-inner { grid-template-columns: 1fr; gap: 34px; }.about-hero .page-breadcrumb { margin-bottom: 34px; }.about-hero h1 { font-size: clamp(38px,11.5vw,50px); }.about-hero .page-description { font-size: 14px; line-height: 1.8; }.about-hero-mark { width: 170px; height: 180px; justify-self: end; padding: 22px; border-radius: 22px; }.about-hero-mark strong { font-size: 42px; }.about-hero-mark i { margin: 14px 0 10px; }.about-orbit-one { top: auto; right: -260px; bottom: -320px; }.about-orbit-two { top: auto; right: -170px; bottom: -230px; }.about-content { padding: 72px 0 84px; }.about-layout { grid-template-columns: 1fr; gap: 54px; }.about-index { position: static; padding: 26px; }.about-index-list { display: grid; grid-template-columns: 1fr; }.about-story-heading { padding-bottom: 30px; }.about-story-heading h2 { font-size: clamp(32px,9vw,42px); }.about-narrative { margin-top: 26px; }.about-narrative > p { padding: 25px 20px 25px 66px; border-radius: 15px; font-size: 14px; line-height: 1.88; text-align: left; }.about-narrative > p > span { top: 24px; left: 18px; width: 36px; height: 36px; border-radius: 10px; font-size: 11px; }.about-point-list { grid-template-columns: 1fr; margin-top: 32px; }.about-point-list article { min-height: 200px; padding: 23px 23px 62px; }.about-point-copy h3 { margin-top: 25px; font-size: 23px; }.about-point-description { font-size: 13px; } }
+.inquiry-form button:disabled { cursor: wait; opacity: .65; }
+.inquiry-honeypot { position: absolute!important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
+.submit-error { margin: -5px 0 0; color: #b42318; font-size: 12px; line-height: 1.6; }
 </style>

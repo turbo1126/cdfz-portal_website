@@ -29,7 +29,15 @@ const capabilitySteps = computed(() => getLocaleContent(locale.value).home.capab
 </template>
 
 <style scoped>
-.capability-section { position: relative; overflow: hidden; padding: 120px 0; color: white; background: var(--night); }
+.capability-section {
+  position: relative;
+  overflow: hidden;
+  padding: 120px 0;
+  color: white;
+  background:
+    linear-gradient(90deg, rgba(7, 14, 12, .82), rgba(7, 14, 12, .72)),
+    url('http://localhost:1337/uploads/_3156d8b6d4.jpg') center / cover no-repeat;
+}
 .capability-layout { display: grid; grid-template-columns: .92fr 1.08fr; gap: 100px; align-items: center; }
 .capability-layout { position: relative; z-index: 1; }
 .capability-section .section-heading { max-width: 570px; }

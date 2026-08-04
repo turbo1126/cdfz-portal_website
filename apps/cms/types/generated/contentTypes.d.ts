@@ -614,6 +614,75 @@ export interface ApiCaseArticleCaseArticle extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiCooperationInquiryCooperationInquiry
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'cooperation_inquiries';
+  info: {
+    description: '\u5B98\u7F51\u5408\u4F5C\u54A8\u8BE2\u8868\u5355\u6536\u96C6\u7684\u5546\u52A1\u7EBF\u7D22';
+    displayName: '\u5408\u4F5C\u54A8\u8BE2';
+    pluralName: 'cooperation-inquiries';
+    singularName: 'cooperation-inquiry';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    email: Schema.Attribute.Email;
+    intention: Schema.Attribute.Enumeration<
+      ['product-demo', 'platform-cooperation', 'industrial-services', 'other']
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'product-demo'>;
+    internalNotes: Schema.Attribute.Text & Schema.Attribute.Private;
+    language: Schema.Attribute.Enumeration<['zh-CN', 'en-US']> &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'zh-CN'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::cooperation-inquiry.cooperation-inquiry'
+    > &
+      Schema.Attribute.Private;
+    message: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 5000;
+      }>;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 100;
+      }>;
+    organization: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+    phone: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 50;
+      }>;
+    privacyConsent: Schema.Attribute.Boolean &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<false>;
+    publishedAt: Schema.Attribute.DateTime;
+    source: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 255;
+      }> &
+      Schema.Attribute.DefaultTo<'website-contact'>;
+    status: Schema.Attribute.Enumeration<
+      ['new', 'contacted', 'qualified', 'closed', 'invalid']
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'new'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiCoreProductCoreProduct extends Struct.CollectionTypeSchema {
   collectionName: 'core_products';
   info: {
@@ -1530,6 +1599,7 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::about-page.about-page': ApiAboutPageAboutPage;
       'api::case-article.case-article': ApiCaseArticleCaseArticle;
+      'api::cooperation-inquiry.cooperation-inquiry': ApiCooperationInquiryCooperationInquiry;
       'api::core-product.core-product': ApiCoreProductCoreProduct;
       'api::home-hero-slide.home-hero-slide': ApiHomeHeroSlideHomeHeroSlide;
       'api::innovation-platform.innovation-platform': ApiInnovationPlatformInnovationPlatform;

@@ -1,0 +1,82 @@
+{
+  "kind": "collectionType",
+  "collectionName": "cooperation_inquiries",
+  "info": {
+    "singularName": "cooperation-inquiry",
+    "pluralName": "cooperation-inquiries",
+    "displayName": "合作咨询",
+    "description": "官网合作咨询表单收集的商务线索"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "maxLength": 100
+    },
+    "organization": {
+      "type": "string",
+      "maxLength": 200
+    },
+    "phone": {
+      "type": "string",
+      "maxLength": 50
+    },
+    "email": {
+      "type": "email"
+    },
+    "intention": {
+      "type": "enumeration",
+      "enum": [
+        "product-demo",
+        "platform-cooperation",
+        "industrial-services",
+        "other"
+      ],
+      "default": "product-demo",
+      "required": true
+    },
+    "message": {
+      "type": "text",
+      "maxLength": 5000
+    },
+    "language": {
+      "type": "enumeration",
+      "enum": [
+        "zh-CN",
+        "en-US"
+      ],
+      "default": "zh-CN",
+      "required": true
+    },
+    "source": {
+      "type": "string",
+      "default": "website-contact",
+      "maxLength": 255
+    },
+    "privacyConsent": {
+      "type": "boolean",
+      "required": true,
+      "default": false
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "new",
+        "contacted",
+        "qualified",
+        "closed",
+        "invalid"
+      ],
+      "default": "new",
+      "required": true
+    },
+    "internalNotes": {
+      "type": "text",
+      "private": true
+    }
+  }
+}
